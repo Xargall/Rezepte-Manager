@@ -1,0 +1,22 @@
+{% extends 'rezepte/base.html' %}
+
+{% block title %}
+  {{ recipe.title }}
+{% endblock %}
+
+{% block content %}
+  <a href="{% url 'recipe_list' %}">&larr; Zurück zur Übersicht</a>
+
+  <h1>{{ recipe.title }}</h1>
+  <p>
+    <strong>Zutaten:</strong><br />{{ recipe.ingredients|linebreaks }}
+  </p>
+  <p>
+    <strong>Zubereitung:</strong><br />{{ recipe.instructions|linebreaks }}
+  </p>
+  <p>
+    <small>Erstellt am {{ recipe.created_at }}</small>
+  </p>
+  <a href="{% url 'recipe_delete' recipe.slug %}">Rezept löschen</a>
+  <a href="{% url 'recipe_update' recipe.slug %}">Bearbeiten</a>
+{% endblock %}

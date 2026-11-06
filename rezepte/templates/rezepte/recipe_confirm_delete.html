@@ -1,0 +1,20 @@
+{% extends 'rezepte/base.html' %}
+
+{% block title %}
+  Rezept löschen
+{% endblock %}
+
+{% block content %}
+  <a href="{% url 'recipe_detail' recipe.slug %}">&larr; Zurück</a>
+
+  <h1>Rezept wirklich löschen?</h1>
+  <p>
+    Du bist dabei, <strong>{{ recipe.title }}</strong> unwiderruflich zu löschen.
+  </p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Ja, löschen</button>
+    <a href="{% url 'recipe_detail' recipe.slug %}">Abbrechen</a>
+  </form>
+{% endblock %}

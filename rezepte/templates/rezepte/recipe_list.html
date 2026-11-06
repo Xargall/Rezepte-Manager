@@ -1,0 +1,19 @@
+{% extends 'rezepte/base.html' %}
+
+{% block title %}
+  Meine Rezepte
+{% endblock %}
+
+{% block content %}
+  <h1>Meine Rezepte</h1>
+
+  <ul>
+    {% for recipe in recipes %}
+      <li>
+        <a href="{% url 'recipe_detail' recipe.slug %}">{{ recipe.title }}</a>
+      </li>
+    {% empty %}
+      <li>Noch keine Rezepte vorhanden.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

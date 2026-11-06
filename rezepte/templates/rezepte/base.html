@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <title>
+      {% block title %}
+        Rezepte
+      {% endblock %}
+    </title>
+    <link rel="stylesheet" href="{% static 'rezepte/style.css' %}" />
+  </head>
+  <body>
+    <nav>
+      <a href="{% url 'recipe_list' %}">Übersicht</a>
+      <a href="{% url 'recipe_create' %}">+ Neues Rezept</a>
+    </nav>
+
+    <main>
+      {% block content %}
+      {% endblock %}
+    </main>
+  </body>
+</html>

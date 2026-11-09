@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
-from .models import Recipe
+from .models import Recipe, Category
 from .forms import RecipeForm
 
 # Create your views here.
@@ -10,6 +10,18 @@ class RecipeListView(ListView):
     model = Recipe
     template_name = "rezepte/recipe_list.html"
     context_object_name = "recipes"
+
+    def get_queryset(self):
+        queryset = Recipe.objects.all()
+        category_name = self.request.GET.get("category")
+        if category_name:
+            queryset = queryset.filter(category__name=category_name)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = Category.objects.all()
+        return context
 
 
 class RecipeDetailView(DetailView):

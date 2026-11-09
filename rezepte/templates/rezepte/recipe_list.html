@@ -6,6 +6,12 @@
 
 {% block content %}
   <h1>Meine Rezepte</h1>
+  <nav>
+    <a href="{% url 'recipe_list' %}">Alle</a>
+    {% for cat in categories %}
+      | <a href="{% url 'recipe_list' %}?category={{ cat.name }}">{{ cat.name }}</a>
+    {% endfor %}
+  </nav>
 
   <ul>
     {% for recipe in recipes %}

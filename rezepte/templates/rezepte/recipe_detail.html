@@ -8,9 +8,14 @@
   <a href="{% url 'recipe_list' %}">&larr; Zurück zur Übersicht</a>
 
   <h1>{{ recipe.title }}</h1>
-  <p>
-    <strong>Zutaten:</strong><br />{{ recipe.ingredients|linebreaks }}
-  </p>
+  <div>
+    <strong>Zutaten:</strong>
+    <ul>
+      {% for ri in recipe.recipeingredient_set.all %}
+        <li>{{ ri.amount }} {{ ri.ingredient.name }}</li>
+      {% endfor %}
+    </ul>
+  </div>
   <p>
     <strong>Zubereitung:</strong><br />{{ recipe.instructions|linebreaks }}
   </p>

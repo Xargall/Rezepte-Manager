@@ -1,13 +1,23 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import ListView, DetailView
 from .models import Recipe
 from .forms import RecipeForm
 
 # Create your views here.
 
 
-def recipe_list(request):
-    recipes = Recipe.objects.all()
-    return render(request, "rezepte/recipe_list.html", {"recipes": recipes})
+class RecipeListView(ListView):
+    model = Recipe
+    template_name = "rezepte/recipe_list.html"
+    context_object_name = "recipes"
+
+
+class RecipeDetailView(DetailView):
+    model = Recipe
+    template_name = "rezepte/recipe_detail.html"
+    context_object_name = "recipe"
+    slug_field = "slug"
+    slug_url_kwarg = "slug"
 
 
 def recipe_create(request):
@@ -19,11 +29,6 @@ def recipe_create(request):
     else:
         form = RecipeForm()
     return render(request, "rezepte/recipe_form.html", {"form": form})
-
-
-def recipe_detail(request, slug):
-    recipe = get_object_or_404(Recipe, slug=slug)
-    return render(request, "rezepte/recipe_detail.html", {"recipe": recipe})
 
 
 def recipe_update(request, slug):
